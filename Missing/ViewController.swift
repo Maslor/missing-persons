@@ -19,6 +19,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     let imagePicker = UIImagePickerController()
     
+    var hasSelectedImage : Bool = false
     var selectedPerson : Person?
     
     let persons = [
@@ -44,12 +45,42 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
 
+    
+    func showErrorAlert() {
+        let alert  = UIAlertController(title: "Select Person", message: "Please select a missing person to check and an image from your album", preferredStyle: UIAlertControllerStyle.Alert)
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        alert.addAction(ok)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
     @IBAction func checkForMatch(_: AnyObject) {
-        if selectedPerson == nil {
-            let alert  = UIAlertController(title: "SelectPerson", message: "Please select a missing person to check", preferredStyle: UIAlertControllerStyle.Alert)
-            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
-            alert.addAction(ok)
-            self.presentViewController(alert, animated: true, completion: nil)
+        if selectedPerson == nil || !hasSelectedImage {
+            showErrorAlert()
+        } else {
+            if let myImg = selectedImage.image, let imgData = UIImageJPEGRepresentation(myImg, 0.8) {
+                
+                FaceService.instance.client.detectWithData(imgData, returnFaceId: true, returnFaceLandmarks: false, returnFaceAttributes: nil, completionBlock: { (faces: [MPOFace]!, err: NSError!) in
+                    
+                    if err == nil {
+                        var faceId: String?
+                        for face in faces {
+                            faceId = face.faceId
+                            break
+                        }
+                        
+                        if faceId != nil {
+                            FaceService.instance.client.verifyWithFirstFaceId(self.selectedPerson!.faceId, faceId2: faceId, completionBlock: { (result: MPOVerifyResult!, err: NSError!) in
+                                
+                                if err == nil {
+                                    print(result.confidence)
+                                    print(result.isIdentical)
+                                } else {
+                                    print(err.debugDescription)
+                                }
+                            })
+                        }
+                    }
+                })
+            }
         }
     }
     
@@ -76,6 +107,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             selectedImage.image = pickedImage
+            hasSelectedImage = true
         }
         
         dismissViewControllerAnimated(true, completion: nil)
