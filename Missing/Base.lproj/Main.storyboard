@@ -81,7 +81,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uv4-08-s7t">
-                                <frame key="frameInset" minX="87" minY="461" width="168" height="38"/>
+                                <frame key="frameInset" minX="87" minY="453" width="168" height="38"/>
                                 <color key="backgroundColor" red="0.18039215689999999" green="0.52941176469999995" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="3ra-Yl-qnD"/>
@@ -95,6 +95,12 @@
                                     <action selector="checkForMatch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eN4-1X-Cv3"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkI-Jz-M1M">
+                                <frame key="frameInset" minX="150" minY="417"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -103,8 +109,10 @@
                             <constraint firstItem="Ta9-YK-HEE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="AIB-pJ-X2G"/>
                             <constraint firstAttribute="trailing" secondItem="fpb-sb-8V8" secondAttribute="trailing" id="PVV-Ii-LAE"/>
                             <constraint firstItem="fpb-sb-8V8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="R46-LL-8Fl"/>
+                            <constraint firstItem="Uv4-08-s7t" firstAttribute="top" secondItem="vkI-Jz-M1M" secondAttribute="bottom" constant="15" id="UyB-zq-Ccc"/>
                             <constraint firstAttribute="trailing" secondItem="7LI-si-9Xo" secondAttribute="trailing" id="bIc-3g-t3P"/>
                             <constraint firstItem="fpb-sb-8V8" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="dGo-fZ-ddg"/>
+                            <constraint firstItem="vkI-Jz-M1M" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fik-1F-UzE"/>
                             <constraint firstItem="7LI-si-9Xo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rcL-eJ-kLC"/>
                             <constraint firstItem="7LI-si-9Xo" firstAttribute="top" secondItem="fpb-sb-8V8" secondAttribute="bottom" constant="8" id="uvk-mr-QjF"/>
                             <constraint firstItem="Ta9-YK-HEE" firstAttribute="top" secondItem="7LI-si-9Xo" secondAttribute="bottom" constant="23" id="xqL-Xb-IDA"/>
@@ -112,6 +120,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="7LI-si-9Xo" id="23p-JT-eRS"/>
+                        <outlet property="displayResult" destination="vkI-Jz-M1M" id="kFt-up-KR7"/>
                         <outlet property="selectedImage" destination="Ta9-YK-HEE" id="v03-HS-MK3"/>
                     </connections>
                 </viewController>

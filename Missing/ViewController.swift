@@ -13,6 +13,7 @@ let baseURL = "http://localhost:6069/img/"
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    @IBOutlet weak var displayResult: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
 
     @IBOutlet weak var selectedImage: UIImageView!
@@ -71,8 +72,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                             FaceService.instance.client.verifyWithFirstFaceId(self.selectedPerson!.faceId, faceId2: faceId, completionBlock: { (result: MPOVerifyResult!, err: NSError!) in
                                 
                                 if err == nil {
-                                    print(result.confidence)
+                                    print(result.confidence.floatValue * 100)
                                     print(result.isIdentical)
+                                    if result.isIdentical {
+                                        self.displayResult.text = "It's a match with \(result.confidence.floatValue * 100)% confidence!"
+                                    } else {
+                                        self.displayResult.text = "It's not a match with \(100 - result.confidence.floatValue * 100)% confidence."
+                                    }
                                 } else {
                                     print(err.debugDescription)
                                 }
