@@ -44,8 +44,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
     }
 
-    @IBAction func checkForMatch(sender: AnyObject) {
-     
+    @IBAction func checkForMatch(_: AnyObject) {
+        if selectedPerson == nil {
+            let alert  = UIAlertController(title: "SelectPerson", message: "Please select a missing person to check", preferredStyle: UIAlertControllerStyle.Alert)
+            let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+            alert.addAction(ok)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
