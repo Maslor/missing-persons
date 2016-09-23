@@ -19,6 +19,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     let imagePicker = UIImagePickerController()
     
+    var selectedPerson : Person?
+    
     let persons = [
         Person(personImageUrl: "person1.jpg"),
         Person(personImageUrl: "person2.jpg"),
@@ -27,8 +29,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         Person(personImageUrl: "person5.jpg"),
         Person(personImageUrl: "person6.jpg")
     ]
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +45,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
 
     @IBAction func checkForMatch(sender: AnyObject) {
+     
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.selectedPerson = persons[indexPath.row]
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PersonCell
+        cell.setSelected()
         
     }
     

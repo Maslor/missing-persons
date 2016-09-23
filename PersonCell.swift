@@ -30,7 +30,13 @@ import UIKit
                     self.person.downloadFaceId()
                 }
             }
+        }
+        
+        func setSelected() {
+            personImg.layer.borderWidth = 2.0
+            personImg.layer.borderColor = UIColor.yellowColor().CGColor
             
+            self.person.downloadFaceId()
         }
         
         func getDataFromUrl(url: NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError?) -> Void)){
